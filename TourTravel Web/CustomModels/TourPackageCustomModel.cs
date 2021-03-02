@@ -21,6 +21,7 @@ namespace TourTravel_Web.CustomModels
         public string PhotoThumbPath { get; set; }
         public string PhotoNormalPath { get; set; }
         public string FarePer { get; set; }
+        public bool IsPriceVisible { get; set; }
     }
     public class GenOfferTourPackageView
     {
@@ -59,6 +60,7 @@ namespace TourTravel_Web.CustomModels
         public string PackageDesc { get; set; }
         public decimal FinalFare { get; set; }
         public string FarePer { get; set; }
+        public bool IsPriceVisible { get; set; }
     }
     public class Itinerariesstatus
     {

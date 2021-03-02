@@ -38,5 +38,6 @@ namespace TourTravel_Web.Areas.Admin.Models
         [Required(ErrorMessage = "Select Fare Per")]
         [Display(Name = "Fare Per")]
         public string FarePer { get; set; }
+        public bool IsPriceVisible { get; set; }
     }
 }

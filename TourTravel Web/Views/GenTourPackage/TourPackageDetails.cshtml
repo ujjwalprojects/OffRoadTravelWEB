@@ -28,48 +28,60 @@
             <div class="col-sm-12 col-md-12 col-lg-12">
                 <div class="tour-details-left">
                     <div class="row">
-                        <div class="col-lg-7 col-md-7">
-                            <div class="mt-3">
-                                <h4 class="text-dark">@Model.GenTourPackageDtlView.PackageName</h4><br />
-                                <span class="text-info font-weight-bold"><i class="fa fa-hourglass-3"></i> @Model.GenTourPackageDtlView.Days Days / @Model.GenTourPackageDtlView.Nights Nights</span><br />
-                                <i class="fa fa-inr mt-3"></i>&nbsp;&nbsp;<span class="text-dark font-weight-bold display-price mt-3" id="pack-price">@Model.GenTourPackageDtlView.FinalFare.ToString("0")</span>  /- per @Model.GenTourPackageDtlView.FarePer
-                            </div>
-                        </div>
-                        <div class="col-lg-5 col-md-5">
-                            <div class="book-tour-field">
-
-                                <div class="book-tour-field clearfix mt-3">
-                                    <label class="mb-0"><i class="fa fa-building text-info"></i>&nbsp;&nbsp;&nbsp; Choose Your Hotel Stay :</label>
-                                    <div class="d-flex">
-                                        @foreach (var item in Model.HotelTypes)
-                                        {
-
-                                            <label class="radio-label">
-                                                @Html.RadioButtonFor(m => m.ClientEnquiry.HotelTypeID, item.HotelTypeID, new { @class = "rbHotel", data_price = item.BaseFare })
-                                                <span class="mr-2"></span>
-                                                <span class="text">@item.HotelTypeName</span>
-                                            </label>
-                                        }
-                                    </div>
-                                    @Html.ValidationMessageFor(model => model.ClientEnquiry.HotelTypeID)
-                                </div>
-                                <div class="book-tour-field clearfix">
-                                    <label class="mb-0"><i class="fa fa-cab text-info"></i>&nbsp;&nbsp;&nbsp; Choose Your Transport Type :</label>
-                                    <div class="d-flex">
-                                        @foreach (var item in Model.CabTypes)
-                                        {
-                                            <label class="radio-label">
-                                                @Html.RadioButtonFor(m => m.ClientEnquiry.CabTypeID, item.CabTypeID, new { @class = "rbCab", data_price = item.BaseFare })
-                                                <span class="mr-2"></span>
-                                                <span class="text">@item.CabTypeName</span>
-                                            </label>
-                                        }
-                                    </div>
-                                    @*@Html.DropDownListFor(model => model.ClientEnquiry.CabTypeID, new SelectList(Model.CabTypes, "CabTypeID", "CabTypeName"), "Preferred Cab Type", new { id = "CabType", @class = "wide dd-select" })*@
-                                    @Html.ValidationMessageFor(model => model.ClientEnquiry.CabTypeID)
+                        @if (Model.GenTourPackageDtlView.IsPriceVisible == true)
+                        {
+                            <div class="col-lg-7 col-md-7">
+                                <div class="mt-3">
+                                    <h4 class="text-dark">@Model.GenTourPackageDtlView.PackageName</h4><br />
+                                    <span class="text-info font-weight-bold"><i class="fa fa-hourglass-3"></i> @Model.GenTourPackageDtlView.Days Days / @Model.GenTourPackageDtlView.Nights Nights</span><br />
+                                    <i class="fa fa-inr mt-3"></i>&nbsp;&nbsp;<span class="text-dark font-weight-bold display-price mt-3" id="pack-price">@Model.GenTourPackageDtlView.FinalFare.ToString("0")</span>  /- per @Model.GenTourPackageDtlView.FarePer
                                 </div>
                             </div>
-                        </div>
+                            <div class="col-lg-5 col-md-5">
+                                <div class="book-tour-field">
+
+                                    <div class="book-tour-field clearfix mt-3">
+                                        <label class="mb-0"><i class="fa fa-building text-info"></i>&nbsp;&nbsp;&nbsp; Choose Your Hotel Stay :</label>
+                                        <div class="d-flex">
+                                            @foreach (var item in Model.HotelTypes)
+                                            {
+
+                                                <label class="radio-label">
+                                                    @Html.RadioButtonFor(m => m.ClientEnquiry.HotelTypeID, item.HotelTypeID, new { @class = "rbHotel", data_price = item.BaseFare })
+                                                    <span class="mr-2"></span>
+                                                    <span class="text">@item.HotelTypeName</span>
+                                                </label>
+                                            }
+                                        </div>
+                                        @Html.ValidationMessageFor(model => model.ClientEnquiry.HotelTypeID)
+                                    </div>
+                                    <div class="book-tour-field clearfix">
+                                        <label class="mb-0"><i class="fa fa-cab text-info"></i>&nbsp;&nbsp;&nbsp; Choose Your Transport Type :</label>
+                                        <div class="d-flex">
+                                            @foreach (var item in Model.CabTypes)
+                                            {
+                                                <label class="radio-label">
+                                                    @Html.RadioButtonFor(m => m.ClientEnquiry.CabTypeID, item.CabTypeID, new { @class = "rbCab", data_price = item.BaseFare })
+                                                    <span class="mr-2"></span>
+                                                    <span class="text">@item.CabTypeName</span>
+                                                </label>
+                                            }
+                                        </div>
+                                        @*@Html.DropDownListFor(model => model.ClientEnquiry.CabTypeID, new SelectList(Model.CabTypes, "CabTypeID", "CabTypeName"), "Preferred Cab Type", new { id = "CabType", @class = "wide dd-select" })*@
+                                        @Html.ValidationMessageFor(model => model.ClientEnquiry.CabTypeID)
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="col-lg-12 col-md-12">
+                                <div class="mt-3">
+                                    <h4 class="text-dark">@Model.GenTourPackageDtlView.PackageName</h4><br />
+                                    <span class="text-info font-weight-bold"><i class="fa fa-hourglass-3"></i> @Model.GenTourPackageDtlView.Days Days / @Model.GenTourPackageDtlView.Nights Nights</span><br />
+                                </div>
+                            </div>
+                        }
                     </div>
 
                     <hr />
@@ -751,11 +763,13 @@
                                 </div>
 
                             </div>
-                            <div class="tour-desc-top pb-0">
-                                <i class="fa fa-inr text-info"></i><label class="text-info font-weight-bold">@item.FinalFare.ToString("0")/-</label>
-                                <small class="text-muted">Per @item.FarePer</small>
-                            </div>
-
+                            @if (item.IsPriceVisible == true)
+                            {
+                                <div class="tour-desc-top pb-0">
+                                    <i class="fa fa-inr text-info"></i><label class="text-info font-weight-bold">@item.FinalFare.ToString("0")/-</label>
+                                    <small class="text-muted">Per @item.FarePer</small>
+                                </div>
+                            }
                         </div>
                     </div>
 

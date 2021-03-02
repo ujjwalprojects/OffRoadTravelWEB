@@ -291,11 +291,15 @@
                                             </div>*@
 
                                     </div>
-                                    <div class="tour-desc-top pb-0">
-                                        <i class="fa fa-inr text-info"></i>
-                                        <label class="text-info font-weight-bold">@item.FinalFare.ToString("0")/-</label>
-                                        <small class="text-muted">Per @item.FarePer</small>
-                                    </div>
+                                    @if (item.IsPriceVisible == true)
+                                    {
+                                        <div class="tour-desc-top pb-0">
+                                            <i class="fa fa-inr text-info"></i>
+                                            <label class="text-info font-weight-bold">@item.FinalFare.ToString("0")/-</label>
+                                            <small class="text-muted">Per @item.FarePer</small>
+                                        </div>
+                                    }
+
 
                                 </div>
                             </div>
@@ -420,16 +424,16 @@
                 <div class="destination-slider owl-carousel">
                     @foreach (var item in ViewBag.Destinations)
                     {
-                    <div class="single-destination">
-                        <a href="/destinationpackage/@item.DestinationID">
-                            <div class="destination-image">
-                                <img src="@item.DestinationImagePath" alt="destination" />
-                                <div class="destination-title">
-                                    <h3>@item.DestinationName</h3>
+                        <div class="single-destination">
+                            <a href="/destinationpackage/@item.DestinationID">
+                                <div class="destination-image">
+                                    <img src="@item.DestinationImagePath" alt="destination" />
+                                    <div class="destination-title">
+                                        <h3>@item.DestinationName</h3>
+                                    </div>
                                 </div>
-                            </div>
-                        </a>
-                    </div>
+                            </a>
+                        </div>
                     }
                 </div>
                 @*<div class="destination-slider owl-carousel">
@@ -483,11 +487,14 @@
 <section class="">
     <div class="container">
         <div class="row pb-3">
-            <div class="col-lg-12">
-                <div class="site-heading">
-                    <h3>Latest Offers</h3>
+            @if (ViewBag.OfferPackage.Count > 0 )
+            {
+                <div class="col-lg-12">
+                    <div class="site-heading">
+                        <h3>Latest Offers</h3>
+                    </div>
                 </div>
-            </div>
+            }
         </div>
         <div class="row">
             <div class="col-lg-12">
@@ -500,15 +507,15 @@
                         {
                             foreach (var item in ViewBag.OfferPackage)
                             {
-                        <div class="carousel-item @(first?Html.Raw("active"):Html.Raw(""))">
-                            <div class="">
-                                <img class="d-block w-50 float-left " src="@item.OfferImagePath" alt="Travel Discount" />
-                                <span class="d-block w-50 float-left p-3 text-white text-center">
-                                    @Html.Raw(HttpUtility.HtmlDecode(item.OfferDesc))
-                                    <a href="/PackageOffer/@item.PackageOfferID" class="peulis-btn pt-2">Explore Offers <i class="fa fa-angle-double-right"></i> </a>
-                                </span>
-                            </div>
-                        </div>
+                                <div class="carousel-item @(first?Html.Raw("active"):Html.Raw(""))">
+                                    <div class="">
+                                        <img class="d-block w-50 float-left " src="@item.OfferImagePath" alt="Travel Discount" />
+                                        <span class="d-block w-50 float-left p-3 text-white text-center">
+                                            @Html.Raw(HttpUtility.HtmlDecode(item.OfferDesc))
+                                            <a href="/PackageOffer/@item.PackageOfferID" class="peulis-btn pt-2">Explore Offers <i class="fa fa-angle-double-right"></i> </a>
+                                        </span>
+                                    </div>
+                                </div>
                                 first = false;
                             }
                         }
@@ -532,64 +539,73 @@
 {
     foreach (var group in ViewBag.PType)
     {
-        <section class="peulis-popular-tours-area">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="site-heading" style="padding-top:20px;">
-                            <h3>@group.Key</h3>
+        foreach (var pkgtype in ViewBag.TourTypes)
+        {
+            if ((group.Key == pkgtype.PackageTypeName) && pkgtype.IsVisible == true)
+            {
+                <section class="peulis-popular-tours-area">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="site-heading" style="padding-top:20px;">
+                                    <h3>@group.Key</h3>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
 
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="destination-slider owl-carousel owl-carousel2">
-                            @foreach (var item in group.Value)
-                            {
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="destination-slider owl-carousel owl-carousel2">
+                                    @foreach (var item in group.Value)
+                                    {
 
-                                <div class="single-destination">
+                                        <div class="single-destination">
 
-                                    <a href="/tourpackage/@item.LinkText">
-                                        <div class="destination-image">
-                                            <img src="@item.PhotoThumbPath" alt="destination" />
-                                            <div class="destination-title">
-                                                @*<h3>@item.PackageName</h3>*@
-                                                <span class="btn btn-outline-light"><i class="fa fa-plane"></i> Book Now</span>
+                                            <a href="/tourpackage/@item.LinkText">
+                                                <div class="destination-image">
+                                                    <img src="@item.PhotoThumbPath" alt="destination" />
+                                                    <div class="destination-title">
+                                                        @*<h3>@item.PackageName</h3>*@
+                                                        <span class="btn btn-outline-light"><i class="fa fa-plane"></i> Book Now</span>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            <div class="popular-tour-desc">
+                                                <div class="tour-desc-top pt-2">
+                                                    <h6 class="justify-content-around"><a href="/tourpackage/@item.LinkText">@item.PackageName</a></h6>
+                                                </div>
+                                                <div class="tour-desc-bottom">
+                                                    <div class="tour_duration mt-0">
+                                                        <p>
+                                                            <i class="fa fa-hourglass-half text-info"></i>
+                                                            @item.Days days / @item.Nights nights
+                                                        </p>
+                                                    </div>
+
+
+                                                </div>
+                                                @if (item.IsPriceVisible == true)
+                                                {
+                                                    <div class="tour-desc-top pb-0">
+                                                        <i class="fa fa-inr text-info"></i>
+                                                        <label class="text-info font-weight-bold">@item.FinalFare.ToString("0")/-</label>
+                                                        <small class="text-muted">Per @item.FarePer</small>
+                                                    </div>
+                                                }
                                             </div>
                                         </div>
-                                    </a>
-                                    <div class="popular-tour-desc">
-                                        <div class="tour-desc-top pt-2">
-                                            <h6 class="justify-content-around"><a href="/tourpackage/@item.LinkText">@item.PackageName</a></h6>
-                                        </div>
-                                        <div class="tour-desc-bottom">
-                                            <div class="tour_duration mt-0">
-                                                <p>
-                                                    <i class="fa fa-hourglass-half text-info"></i>
-                                                    @item.Days days / @item.Nights nights
-                                                </p>
-                                            </div>
 
-
-                                        </div>
-                                        <div class="tour-desc-top pb-0">
-                                            <i class="fa fa-inr text-info"></i>
-                                            <label class="text-info font-weight-bold">@item.FinalFare.ToString("0")/-</label>
-                                            <small class="text-muted">Per @item.FarePer</small>
-                                        </div>
-
-                                    </div>
+                                    }
                                 </div>
 
-                            }
+                            </div>
                         </div>
 
                     </div>
-                </div>
+                </section>
+            }
+        }
 
-            </div>
-        </section>
     }
 }
 <!-- Package Type Area End -->

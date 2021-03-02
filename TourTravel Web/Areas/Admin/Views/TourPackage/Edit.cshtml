@@ -98,6 +98,9 @@
             <div class="form-group">
                 @Html.CheckBoxFor(m => m.Package.ShowPackage) &nbsp;&nbsp;<label>Show Package in HomePage?</label>
             </div>
+            <div class="form-group">
+                @Html.CheckBoxFor(m => m.Package.IsPriceVisible) &nbsp;&nbsp;<label>Show Price in HomePage?</label>
+            </div>
             <div class="action-div">
                 <a href="/admin/tourpackage" class="btn btn-secondary">Back To List</a>
                 <button class="btn btn-success pull-right" type="submit">Save &amp; Continue</button>
