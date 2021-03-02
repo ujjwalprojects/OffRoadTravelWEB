@@ -1,0 +1,34 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using TourTravel_Web.Areas.General.CustomModels;
+using TourTravel_Web.Helpers;
+
+namespace TourTravel_Web.Areas.General.Controllers
+{
+    public class GenTourPackageController : Controller
+    {
+        ApiConnection objAPI = new ApiConnection("General");
+        private string FileUrl = ConfigurationManager.AppSettings["FileURL"];
+
+        public ActionResult TourPackageList(int PageNo = 1, int PageSize = 10, string SearchTerm = "")
+        {
+
+            ViewBag.ActiveURL = "/general/tourpackagelist";
+            string query = "PageNo=" + PageNo + "&PageSize=" + PageSize + "&SearchTerm=" + SearchTerm;
+            GenTourPackageAPIVM apiModel = objAPI.GetRecordByQueryString<GenTourPackageAPIVM>("tourpackage", "GenTourPackageList", query);
+            GenTourPackageVM model = new GenTourPackageVM();
+            model.PackageList = apiModel.TourPackageList;
+            model.PagingInfo = new PagingInfo { CurrentPage = PageNo, ItemsPerPage = PageSize, TotalItems = apiModel.TotalRecords };
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView("_pvtourpackageList", model);
+            }
+            return View(model);
+
+        }
+    }
+}

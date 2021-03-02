@@ -1,0 +1,35 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using TourTravel_Web.Areas.Admin.Models;
+using TourTravel_Web.Helpers;
+
+namespace TourTravel_Web.Areas.Admin.CustomModels
+{
+    public class CabView
+    {
+        public long CabID { get; set; }
+        public string CabName { get; set; }
+        public string CabNo { get; set; }
+        public long CabTypeID { get; set; }
+        public string CabTypeName { get; set; }
+        public string CabDriverName { get; set; }
+        public string LicenseNo { get; set; }
+    }
+    public class CabAPIVM
+    {
+        public IEnumerable<CabView> Cabs { get; set; }
+        public int TotalRecords { get; set; }
+    }
+    public class CabVM
+    {
+        public IEnumerable<CabView> Cabs { get; set; }
+        public PagingInfo PagingInfo { get; set; }
+    }
+    public class CabSaveModel
+    {
+        public utblMstCab Cab { get; set; }
+        public IEnumerable<utblMstCabType> CabTypes { get; set; }
+    }
+}

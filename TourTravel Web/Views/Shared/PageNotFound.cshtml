@@ -1,0 +1,33 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+
+@{
+    ViewBag.Title = "PageNotFound";
+    Layout = null;
+    Response.StatusCode = 404;
+}
+<html>
+<head>
+    <title>Page Not Found</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div>
+        <div class="text-center" style="margin-top:150px;">
+            <div>
+                <i class="fa fa-exclamation-triangle text-warning fa-5x"></i>
+            </div>
+            <div>
+                <h2 class="text-warning">
+                    File Not Found (404 Error)
+                </h2>
+                <h5 class="mt-3">
+                    Make sure that the entered URL is mapped to the requested resource.
+                </h5>
+                <span> &larr; Return To<a href="/home"> Home </a></span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

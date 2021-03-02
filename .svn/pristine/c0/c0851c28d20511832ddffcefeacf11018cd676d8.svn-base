@@ -1,0 +1,100 @@
+﻿@model TourTravel_Web.Areas.Admin.CustomModels.DestinationSaveModel
+@{
+    ViewBag.Title = "Edit Destination";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    long stateid = Model.Destination == null ? 0 : Model.Destination.StateID;
+}
+
+<div class="title-div">
+    <i class="fa fa-hand-o-right"></i>&nbsp;
+    <span class="title">Destinations</span>&nbsp;
+    <small>Edit</small>
+</div>
+<div class="card bg-light">
+    <div class="card-body">
+        <div class="text-center">
+            <label class="alert alert-info p-2"><small> Fields marked * are mandatory</small></label>
+        </div>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(m => m.Destination.DestinationID)
+            <div class="row">
+                <div class="col-md">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Destination.CountryID, new { @class = "required" })
+                        @Html.DropDownListFor(m => m.Destination.CountryID, new SelectList(Model.CountryList, "CountryID", "CountryName"), "-- Select Country --", new { @class = "form-control", @id = "ddCountry" })
+                        @Html.ValidationMessageFor(m => m.Destination.CountryID)
+                    </div>
+                </div>
+                <div class="col-md">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Destination.StateID, new { @class = "required" })
+                        @Html.DropDownListFor(m => m.Destination.StateID, new SelectList(string.Empty), "-- Select State --", new { @class = "form-control", @id = "ddState" })
+                        @Html.ValidationMessageFor(m => m.Destination.StateID)
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Destination.DestinationName, new { @class = "required" })
+                <div class="col-md p-0">
+                    @Html.TextBoxFor(m => m.Destination.DestinationName, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Destination.DestinationName)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Destination.DestinationDesc, new { @class = "" })
+                <div class="col-md p-0">
+                    @Html.TextAreaFor(m => m.Destination.DestinationDesc, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Destination.DestinationDesc)
+                </div>
+            </div>
+            <div class="action-div">
+                @Html.ActionLink("Back To List", "index", "destination", new { Area = "Admin" }, new { @class = "btn btn-secondary btn-sm" })
+                <button type="submit" class="btn btn-sm btn-primary pull-right"><i class="fa fa-save"></i> Save</button>
+            </div>
+        }
+    </div>
+</div>
+@*error message*@
+<div id="ErrMsg" style="display:none;">
+    <input type="hidden" id="ErrMsgHiddenField" name="ErrMsg" value="@TempData["ErrMsg"]" />
+</div>
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function () {
+            loadStates('@stateid');
+
+            $('#ddCountry').on('change', function () {
+                loadStates();
+            });
+        });
+
+        function loadStates(stateid) {
+            $('#ddState').empty().append("<option value=''>-- Select State --</option>");
+            var countryID = $('#ddCountry').val();
+            if (countryID != '') {
+                var options = {
+                    url: '/admin/destination/getstates',
+                    type: 'get',
+                    data: { id: countryID },
+                    dataType: 'json'
+                };
+                $.ajax(options).done(function (data) {
+                    $.each(data, function (i, item) {
+                        $('#ddState').append('<option value="' + item.StateID + '">' + item.StateName + '</option>');
+                    });
+                    if (stateid) {
+                        $('#ddState').val(stateid);
+                    }
+                }).fail(function (xhr, msg, err) {
+                    toastr.error(msg, "Error");
+                });
+            }
+        }
+    </script>
+}
+
+

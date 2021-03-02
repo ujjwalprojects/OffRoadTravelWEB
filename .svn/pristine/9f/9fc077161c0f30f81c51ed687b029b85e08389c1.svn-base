@@ -1,0 +1,84 @@
+﻿@model TourTravel_Web.Areas.Admin.CustomModels.TourPackageManageModel3
+@{
+    ViewBag.Title = "Package - Activity & Inclusions";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<style>
+    .txt-fare {
+        width: 140px;
+        height: 35px;
+        text-align: center;
+        border-radius: 20px;
+        font-size: 17px;
+        font-weight: 800;
+    }
+    .txt-fare:disabled{
+        cursor:not-allowed;
+    }
+</style>
+<div class="title-div">
+    <i class="fa fa-hand-o-right"></i>&nbsp;
+    <span class="title">Tour Package - Activities &amp; Inclusions</span>&nbsp;
+    <small>Step 4 of 5</small>
+</div>
+<div class="card ">
+    <div class="card-body">
+        <div>
+            <span class="display-4">@Model.Package.PackageName</span> &nbsp;&nbsp;<b>@Model.Package.TotalDays&nbsp;Days/@(Model.Package.TotalDays - 1)&nbsp;Nights</b>
+        </div>
+        <hr />
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(m => m.Package.PackageID)
+            <h4>Select activities for the package</h4>
+            if (Model.Activities.Count() > 0)
+            {
+                <div class="d-flex justify-content-center">
+                    @{
+                int i = 0;
+                foreach (var item in Model.Activities)
+                {
+                    @Html.HiddenFor(m => Model.Activities[i].PackageActivityID)
+                        @Html.HiddenFor(m => Model.Activities[i].PackageID)
+                        @Html.HiddenFor(m => Model.Activities[i].ActivityID)
+                        <div class="col-md-4">
+                            <div class="card bg-info">
+                                <div class="card-body">
+                                    <h4>@item.ActivityName</h4>
+                                    <small>@item.ActivityDesc</small>
+                                    <hr />
+                                    <div class="text-center">
+                                        <label class="fancy">@Html.CheckBox("[" + i + "].IsSelected", Model.Activities[i].IsSelected) &nbsp;&nbsp; Include in package</label><br />
+                                       <i class="fa fa-rupee"></i>&nbsp;&nbsp; @Html.TextBoxFor(m => Model.Activities[i].ActivityFare, new { @class = "txt-fare", Value = item.ActivityFare.ToString("G29"), disabled="disabled" })
+                                    </div>
+                                    <div class="text-center">
+                                        @Html.ValidationMessageFor(m => Model.Activities[i].ActivityFare)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                }
+                    }
+
+                </div>
+            }
+            else
+            {
+                <div class="text-center p-3">
+                    <img src="~/Content/img/no_record.png" /><br />
+                    <span class="text-muted">No activites found in the activity master. Add activities and then select.</span>
+                </div>
+            }
+
+            <div class="action-div">
+                <a href="/admin/tourpackage/images/@Model.Package.PackageID" class="btn btn-secondary">Back To Images</a>
+                <button class="btn btn-success pull-right" type="submit">Save &amp; Continue</button>
+            </div>
+        }
+    </div>
+</div>
+@*error message*@
+<div id="ErrMsg" style="display:none;">
+    <input type="hidden" id="ErrMsgHiddenField" name="ErrMsg" value="@TempData["ErrMsg"]" />
+</div>

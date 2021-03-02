@@ -1,0 +1,69 @@
+﻿@model TourTravel_Web.CustomModels.GenTourPackageAPIVM
+@{
+    ViewBag.Title = "AdvActivityDetail";
+    Layout = "~/Views/Shared/_LayoutGeneral.cshtml";
+}
+
+<div class="title-div">
+    <i class="fa fa-hand-o-right"></i>&nbsp;
+    <span class="title">Tour Package - Activities &amp; Inclusions</span>&nbsp;
+    <small>Step 4 of 5</small>
+</div>
+<div class="card ">
+    <div class="card-body">
+        @using (Html.BeginForm(Html.BeginForm("advactivitydetail", "gentourpackage", FormMethod.Post)))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(m => m.ClientEnquiry.RefPackageID)
+            <h4>Select activities for the package</h4>
+            <hr />
+            if (Model.ClientEnqActivityList.Count() > 0)
+            {
+                <div class="d-flex justify-content-center flex-wrap">
+                    @{
+                int i = 0;
+                foreach (var item in Model.ClientEnqActivityList)
+                {
+                    @Html.HiddenFor(m => Model.ClientEnqActivityList[i].ClientActivityID)
+                        @Html.HiddenFor(m => Model.ClientEnqActivityList[i].EnquiryCode)
+                        @Html.HiddenFor(m => Model.ClientEnqActivityList[i].RefPackageID)
+                        @Html.HiddenFor(m => Model.ClientEnqActivityList[i].ActivityID)
+                        <div class="mb-1">
+                            <div class="card bg-info">
+                                <div class="card-body">
+                                    <h4>@item.ActivityName</h4>
+                                    <small>@item.ActivityDesc</small>
+                                    <hr />
+                                    <div class="text-center">
+                                        <label class="fancy">@Html.CheckBox("ClientEnqActivityList[" + i + "].IsSelected", Model.ClientEnqActivityList[i].IsSelected, new { @class = "chkActivity", @id = "chkAct_" + @i }) &nbsp;&nbsp; Include in package</label><br />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @Html.HiddenFor(m => Model.ClientEnqActivityList[i].ActivityName)
+                        @Html.HiddenFor(m => Model.ClientEnqActivityList[i].ActivityDesc)
+                    i++;
+                }
+                    }
+
+                </div>
+            }
+            else
+            {
+                <div class="text-center p-3">
+                    <img src="~/Content/img/no_record.png" /><br />
+                    <span class="text-muted">No activites found in the activity master. Add activities and then select.</span>
+                </div>
+            }
+            <div class="action-div">
+                <a href="/customitineraries/@Model.ClientEnquiry.EnquiryCode" class="btn btn-secondary">< Back</a>
+                <button class="btn btn-success pull-right" type="submit">Save &amp; Continue</button>
+            </div>
+        }
+    </div>
+</div>
+@*error message*@
+<div id="ErrMsg" style="display:none;">
+    <input type="hidden" id="ErrMsgHiddenField" name="ErrMsg" value="@TempData["ErrMsg"]" />
+</div>
+

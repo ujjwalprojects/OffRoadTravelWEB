@@ -1,0 +1,21 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Web;
+
+namespace TourTravel_Web.Areas.Admin.Models
+{
+    public class utblTourPackageImage
+    {
+        public long PackageImageID { get; set; }
+        [Required]
+        public long PackageID { get; set; }
+        [Required(ErrorMessage="Select Image")]
+        public string PhotoThumbPath { get; set; }
+        [Required]
+        public string PhotoNormalPath { get; set; }
+        [Display(Name="Image Caption")]
+        public string PhotoCaption { get; set; }
+    }
+}

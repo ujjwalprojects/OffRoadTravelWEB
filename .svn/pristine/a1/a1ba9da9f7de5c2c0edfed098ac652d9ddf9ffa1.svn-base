@@ -1,0 +1,54 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using TourTravel_Web.Helpers;
+using TourTravel_Web.Areas.Admin.Models;
+namespace TourTravel_Web.Areas.Admin.CustomModels
+{
+    public class PackageView
+    {
+        public long PackageTypeID { get; set; }
+        public string PackageTypeName { get; set; }
+    }
+    public class PackageAPIVM
+    {
+        public IEnumerable<PackageView> PackageList { get; set; }
+        public int TotalRecords { get; set; }
+    }
+    public class PackageVM
+    {
+        public IEnumerable<PackageView> PackageList { get; set; }
+        public PagingInfo PagingInfo{ get; set; }
+    }
+    public class PackageSaveModel
+    {
+        public utblMstPackageType PackageType { get; set; }
+    }
+
+    public class PackageOfferView
+    {
+        public long PackageOfferID { get; set; }
+        public long PackageID { get; set; }
+        public int OfferPercent { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+    }
+
+    public class PackageOfferAPIVM
+    {
+        public IEnumerable<PackageOfferView> PackageOfferList{ get; set; }
+        public int TotalRecords { get; set; }
+    }
+    public class PackageOfferVM
+    {
+        public IEnumerable<PackageOfferView> PackageOfferList { get; set; }
+        public PagingInfo PagingInfo { get; set; }
+    }
+
+    public class SavePackageOffer
+    {
+        public IEnumerable<utblTourPackage> PackageList { get; set; }
+        public  utblPackageOffer PackageOffer { get; set; }
+    }
+}

@@ -1,0 +1,25 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Web;
+
+namespace TourTravel_Web.Areas.Admin.Models
+{
+    public class utblPackageOffer
+    {
+        public long PackageOfferID { get; set; }
+        [Display(Name="Package Name")]
+        [Required(ErrorMessage="Select Package Name")]
+        public long PackageID { get; set; }
+        [Display(Name="Offer Percent")]
+        [Required(ErrorMessage="Enter Offer Percent")]
+        public int OfferPercent { get; set; }
+        [Display(Name="Select Start Date")]
+        [Required(ErrorMessage="Select Start Date")]
+        public DateTime StartDate { get; set; }
+        [Display(Name="Select End Date")]
+        [Required(ErrorMessage="Select End Date")]
+        public DateTime EndDate { get; set; }
+    }
+}

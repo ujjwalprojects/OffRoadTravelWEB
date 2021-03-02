@@ -1,0 +1,13 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using TourTravel_Web.Models;
+
+namespace TourTravel_Web.ViewModels
+{
+   public class TourPackageBookingManageModel
+   {
+       public utblClientEnquirie ClientEnquirie { get; set; }
+   }
+}

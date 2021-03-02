@@ -1,0 +1,70 @@
+﻿@{
+    ViewBag.Title = "Why Touring";
+}
+<section class="peulis-breadcrumb-area">
+    <div class="breadcrumb-top">
+        <div class="container">
+            <div class="col-lg-12">
+                <div class="breadcrumb-box">
+                    <h2>Why Touring</h2>
+                    @*<ul class="breadcrumb-inn">
+                            <li><a href="/">Home</a></li>
+                            <li class="active"><a href="#">Search Tour Packages</a></li>
+                        </ul>*@
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="peulis-tour-page-area section_70">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="sidebar-widget">
+                    <div class="single-sidebar">
+                        <h3 >Why Touring</h3>
+                        <div class="clearfix">
+                            <ul style="list-style:none;">
+                                <li><i class="fa fa-hand-o-right "></i>&nbsp;<a href="/Home/whyus"> Why Us</a></li>
+                                <li style="color: #07B1D0;"><i class="fa fa-hand-o-right"></i>&nbsp;<a style="color: #07B1D0;" href="/home/whytouring">Why Touring</a></li>
+                                <li><i class="fa fa-hand-o-right "></i>&nbsp;<a href="/home/travelinsurance">Travel Insurance</a></li>
+                            </ul>
+
+                        </div>
+                    </div>
+                    <div class="single-sidebar">
+                        <div class="quick_contact">
+                            <h4>Quick Contact</h4>
+                            <p>
+                                <i class="fa fa-phone"></i>
+                                1 562 867 5309
+                            </p>
+                            <p>
+                                <i class="fa fa-envelope"></i>
+                                info@example.com
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="tour-page-right" style="line-height:2;">
+                    <p class="text-justify">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; At Offroads Travel, we believe that every traveler has unique needs, objectives and expectations for their travel plan.
+                    </p>
+                    <h4 style="color: #07B1D0;">Curiosity is the key……..</h4>
+                    <p class="text-justify">
+                        We believe that travelling sustainably and consciously matters. We are committed towards protecting the communities we visit, the wildlife we interact with and the planet we all share. We respect local cultures and champion traditional heritage, working together with the local communities and artisans we visit. At the end of the day, we believe that travel is the ultimate form of education - one best served with a heaping side of meaningful interaction and memorable conversation.
+                    </p>
+                  
+                  
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+

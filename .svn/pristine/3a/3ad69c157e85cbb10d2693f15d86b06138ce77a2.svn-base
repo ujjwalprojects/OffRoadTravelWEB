@@ -1,0 +1,18 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using TourTravel_Web.Areas.Admin.Models;
+
+namespace TourTravel_Web.Areas.Admin.CustomModels
+{
+    public class TourPackageManageModel1
+    {
+        public utblTourPackage Package { get; set; }
+        public IEnumerable<utblMstPackageType> PackageTypes { get; set; }
+    }
+    public class TourPackageManageModel2
+    {
+        public utblTourPackage Package { get; set; }
+    }
+}

@@ -1,0 +1,207 @@
+﻿@model TourTravel_Web.CustomModels.GenDestinationVM
+@{
+    ViewBag.Title = "DestinationPackage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/destination-style.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
+<section class="">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="tour-details-left">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <div class="mt-3 text-center">
+                                <h4 class="text-dark">Guide to @Model.GenDestination.DestinationName </h4><br />
+                            </div>
+                        </div>
+
+                    </div>
+                    <hr />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8 col-sm-8 col-xl-8">
+                <div class="tour-details-left">
+                    <div class="tour-details-head">
+                        @*<h3>@Model.GenTourPackageDtlView.PackageName</h3>
+                            <div class="tour-rating">
+                                    <ul>
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star-o"></i></li>
+                                    </ul>
+                                    <p>(2 Review) </p>
+                                </div>*@
+                    </div>
+                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                            <li data-target="#carouselExampleIndicators" class="active"></li>
+                        </ol>
+                        <div class="carousel-inner">
+
+
+                            <div class="carousel-item active">
+                                <img class="d-block w-100" src="@Model.GenDestination.DestinationImagePath" alt="@Model.GenDestination.DestinationName">
+                                <div class="carousel-caption">
+                                    <h5>@Model.GenDestination.DestinationName</h5>
+                                </div>
+                            </div>
+
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                    <div class="destination-desc">
+                        @Html.Raw(HttpUtility.HtmlDecode(Model.GenDestination.DestinationDesc))
+                    </div>
+
+
+
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="sidebar-widget sticky-top">
+                    <div class="single-sidebar">
+                        <div class="quick-contact ">
+                            <h3>Book This Tour</h3>
+                            <form method="post" action="/GenTourPackage/SubmitDirectBooking">
+                                @Html.AntiForgeryToken()
+                                @*@Html.HiddenFor(model => model.GenTourPackageDtlView.PackageID)
+                                    @Html.HiddenFor(model => model.GenTourPackageDtlView.Days)*@
+                                <div class="book-tour-field">
+
+                                    @Html.TextBoxFor(model => model.ClientEnquiry.ClientName, new { @class = "form-control", placeholder = "Your Name" })
+                                    @Html.ValidationMessageFor(model => model.ClientEnquiry.ClientName)
+                                </div>
+                                <div class="book-tour-field">
+
+                                    @Html.TextBoxFor(model => model.ClientEnquiry.ClientEmail, new { @class = "form-control", placeholder = "Email Address" })
+                                    @Html.ValidationMessageFor(model => model.ClientEnquiry.ClientEmail)
+                                </div>
+                                <div class="book-tour-field">
+
+                                    @Html.TextBoxFor(model => model.ClientEnquiry.ClientPhoneNo, new { @class = "form-control", placeholder = "Phone Number" })
+                                    @Html.ValidationMessageFor(model => model.ClientEnquiry.ClientPhoneNo)
+                                </div>
+                                <div class="book-tour-field">
+                                    @Html.TextAreaFor(model => model.ClientEnquiry.Remarks, new { @class = "form-control", placeholder = "Remarks" })
+                                    @Html.ValidationMessageFor(model => model.ClientEnquiry.Remarks)
+                                </div>
+                                <div class="book-tour-field">
+                                    @Html.TextBoxFor(model => model.ClientEnquiry.DateOfArrival, new { @class = "", id = "reservation_date", placeholder = "Travel Date" })
+                                    @Html.ValidationMessageFor(model => model.ClientEnquiry.DateOfArrival)
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 pr-1">
+                                        <div class="book-tour-field clearfix">
+                                            @Html.DropDownListFor(x => x.ClientEnquiry.NoOfAdult, new SelectListItem[]{
+                                            new SelectListItem(){Text="No of Adults", Value=""},
+                                            new SelectListItem(){Text="1", Value="1"},
+                                            new SelectListItem(){Text="2",Value="2"},
+                                            new SelectListItem(){Text="3",Value="3"},
+                                            new SelectListItem(){Text="4+",Value="4+"}}, new { @class = "wide dd-select", id = "NoofAdults", name = "NoofAdults" })
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 pl-1">
+                                        <div class="book-tour-field clearfix">
+                                            @Html.DropDownListFor(x => x.ClientEnquiry.NoOfChildren, new SelectListItem[]{
+                                            new SelectListItem(){Text="No of Children", Value=""},
+                                            new SelectListItem(){Text="0", Value="0"},
+                                            new SelectListItem(){Text="1", Value="1"},
+                                            new SelectListItem(){Text="2",Value="2"},
+                                            new SelectListItem(){Text="3+",Value="3+"}, }, new { @class = "wide dd-select", id = "NoOfChildren", name = "NoOfChildren" })
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="book-tour-field">
+                                    <button type="submit">Send Enquiry</button>
+
+                                    @*<a href="/customtourpackage/@Model.linkname" title="custom package" class="mt-2 btn bg-info text-light font-weight-bold w-100">
+                                            Customize Package
+                                        </a>*@
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- Popular Tours Area Start -->
+
+        </div>
+        @if (Model.PackageList.Count() > 0)
+        {
+            <section class="peulis-popular-tours-area">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="site-heading">
+                                <h3>Popular tours in @Model.GenDestination.DestinationName</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="destination-slider owl-carousel">
+
+                                @foreach (var item in Model.PackageList)
+                                {
+                                <div class="single-destination">
+
+                                    <a href="/tourpackage/@item.LinkText"target="_blank">
+                                        <div class="destination-image">
+                                            <img src="@item.PhotoThumbPath" alt="destination" />
+                                            <div class="destination-title">
+                                                @*<h3>@item.PackageName</h3>*@
+                                                <span class="btn btn-outline-light"><i class="fa fa-plane"></i> Book Now</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <div class="popular-tour-desc">
+                                        <div class="tour-desc-top pt-2">
+                                            <h6 class="justify-content-around"><a href="/tourpackage/@item.LinkText">@item.PackageName</a></h6>
+                                        </div>
+                                        <div class="tour-desc-bottom">
+                                            <div class="tour_duration mt-0">
+                                                <p>
+                                                    <i class="fa fa-hourglass-half text-info"></i>
+                                                    @item.Days days / @item.Nights nights
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="tour-desc-top pb-0">
+                                            <i class="fa fa-inr text-info"></i>
+                                            <label class="text-info font-weight-bold">@item.FinalFare.ToString("0")/-</label>
+                                            <small class="text-muted">Per @item.FarePer</small>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                }
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+        }
+    </div>
+
+</section>

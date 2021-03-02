@@ -1,0 +1,52 @@
+﻿@model TourTravel_Web.Areas.Admin.Models.utblTourGuide
+@{
+    ViewBag.Title = "Tour Guide";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<section class="peulis-breadcrumb-area">
+    <div class="breadcrumb-top">
+        <div class="container">
+            <div class="col-lg-12">
+                <div class="breadcrumb-box">
+                    <h2>Tour Guides</h2>
+                    <ul class="breadcrumb-inn">
+                        <li><a href="/">Home</a></li>
+                        <li class="active"><a href="#">Tour Guide</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>*@
+<section class="pb-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="sidebar-widget">
+                    <div class="single-sidebar">
+                        <h3>Tour Guides</h3>
+                        <div class="tour-filter clearfix">
+
+                            <ul class="ceckbox_filter">
+                                @foreach (var item in ViewBag.TourGuides)
+                                {
+                                    <li class="mb-3">
+                                        <a href="/tourguide/@item.TourGuideLink">
+                                            @item.TourGuideName
+                                        </a>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <h3>@Model.TourGuideName</h3>
+                <br />
+                @Html.Raw(HttpUtility.HtmlDecode(Model.TourGuideDesc))
+            </div>
+        </div>
+    </div>
+</section>

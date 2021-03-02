@@ -1,0 +1,233 @@
+﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using TourTravel_Web.Areas.Admin.CustomModels;
+using TourTravel_Web.Areas.Admin.Models;
+using TourTravel_Web.Controllers;
+using TourTravel_Web.Helpers;
+
+namespace TourTravel_Web.Areas.Admin.Controllers
+{
+    [Authorize]
+    public class PackageController : BaseController
+    {
+        //
+        // GET: /Admin/Package/
+        ApiConnection objAPI = new ApiConnection("Admin");
+
+        #region Package Master
+        public ActionResult PackageList(int PageNo = 1, int PageSize = 10, string SearchTerm = "")
+        {
+            try
+            {
+                ViewBag.ActiveURL = "/Admin/packagelist";
+                string query = "PageNo=" + PageNo + "&PageSize=" + PageSize + "&SearchTerm=" + SearchTerm;
+                PackageAPIVM apiModel = objAPI.GetRecordByQueryString<PackageAPIVM>("configuration", "packagelist", query);
+                PackageVM model = new PackageVM();
+                model.PackageList = apiModel.PackageList;
+                model.PagingInfo = new PagingInfo { CurrentPage = PageNo, ItemsPerPage = PageSize, TotalItems = apiModel.TotalRecords };
+                if (Request.IsAjaxRequest())
+                {
+                    return PartialView("_pvPackageTypeList", model);
+                }
+                return View(model);
+            }
+            catch (AuthorizationException)
+            {
+                TempData["ErrMsg"] = "Your Login Session has expired. Please Login Again";
+                return RedirectToAction("Login", "Account", new { Area = "" });
+            }
+        }
+
+        public ActionResult AddPackage()
+        {
+            ViewBag.ActiveURL = "/Admin/packagelist";
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddPackage(PackageSaveModel model)
+        {
+            try
+            {
+                ViewBag.ActiveURL = "/Admin/packagelist";
+                if (ModelState.IsValid)
+                {
+                    string jsonStr = JsonConvert.SerializeObject(model.PackageType);
+                    TempData["ErrMsg"] = objAPI.PostRecordtoApI("configuration", "savepackagetype", jsonStr);
+                    return RedirectToAction("Packagelist", "package", new { Area = "Admin" });
+                }
+                return View(model);
+            }
+            catch (AuthorizationException)
+            {
+                TempData["ErrMsg"] = "Your Login Session has expired. Please Login Again";
+                return RedirectToAction("Login", "Account", new { Area = "" });
+            }
+        }
+
+        public ActionResult Edit(long id)
+        {
+            try
+            {
+                ViewBag.ActiveURL = "/Admin/packagelist";
+                PackageSaveModel model = new PackageSaveModel();
+                model.PackageType = objAPI.GetObjectByKey<utblMstPackageType>("configuration", "packagetypebyid", id.ToString(), "PackageTypeID");
+                return View(model);
+            }
+            catch (AuthorizationException)
+            {
+                TempData["ErrMsg"] = "Your Login Session has expired. Please Login Again";
+                return RedirectToAction("Login", "Account", new { Area = "" });
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(PackageSaveModel model)
+        {
+            try
+            {
+                ViewBag.ActiveURL = "/Admin/packagelist";
+                if (ModelState.IsValid)
+                {
+                    string jsonStr = JsonConvert.SerializeObject(model.PackageType);
+                    TempData["ErrMsg"] = objAPI.PostRecordtoApI("configuration", "savepackagetype", jsonStr);
+                    return RedirectToAction("packagelist", "Package", new { Area = "Admin" });
+                }
+                return View(model);
+
+            }
+            catch (AuthorizationException)
+            {
+                TempData["ErrMsg"] = "Your Login Session has expired. Please Login Again";
+                return RedirectToAction("Login", "Account", new { Area = "" });
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeletePackage(long PackageTypeID)
+        {
+            TempData["ErrMsg"] = objAPI.DeleteRecordByKey("configuration", "deletepackagetype", PackageTypeID.ToString(), "PackageTypeID");
+            return RedirectToAction("PackageList", "Package", new { Area = "Admin" });
+        }
+        #endregion
+
+
+        #region Package Offer
+        public ActionResult PackageOfferList(int PageNo = 1, int PageSize = 10, string SearchTerm = "")
+        {
+            try
+            {
+                ViewBag.ActiveURL = "/Admin/packagelist";
+                string query = "PageNo=" + PageNo + "&PageSize=" + PageSize + "&SearchTerm=" + SearchTerm;
+                PackageAPIVM apiModel = objAPI.GetRecordByQueryString<PackageAPIVM>("packageconfig", "packageofferlist", query);
+                PackageVM model = new PackageVM();
+                model.PackageList = apiModel.PackageList;
+                model.PagingInfo = new PagingInfo { CurrentPage = PageNo, ItemsPerPage = PageSize, TotalItems = apiModel.TotalRecords };
+                if (Request.IsAjaxRequest())
+                {
+                    return PartialView("_pvPackageTypeList", model);
+                }
+                return View(model);
+            }
+            catch (AuthorizationException)
+            {
+                TempData["ErrMsg"] = "Your Login Session has expired. Please Login Again";
+                return RedirectToAction("Login", "Account", new { Area = "" });
+            }
+        }
+
+        public ActionResult AddPackageOffer()
+        {
+            ViewBag.ActiveURL = "/Admin/packagelist";
+            try
+            {
+                SavePackageOffer model = new SavePackageOffer();
+                model.PackageList = objAPI.GetAllRecords<utblTourPackage>("packageconfig", "tourpackagelist");
+                return View(model);
+            }
+            catch (AuthorizationException)
+            {
+                TempData["ErrMsg"] = "Your Login Session has expired. Please Login Again";
+                return RedirectToAction("Login", "Account", new { Area = "" });
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddPackageOffer(PackageSaveModel model)
+        {
+            try
+            {
+                ViewBag.ActiveURL = "/Admin/packagelist";
+                if (ModelState.IsValid)
+                {
+                    string jsonStr = JsonConvert.SerializeObject(model.PackageType);
+                    TempData["ErrMsg"] = objAPI.PostRecordtoApI("packageconfig", "savepackageoffer", jsonStr);
+                    return RedirectToAction("Packagelist", "package", new { Area = "Admin" });
+                }
+                return View(model);
+            }
+            catch (AuthorizationException)
+            {
+                TempData["ErrMsg"] = "Your Login Session has expired. Please Login Again";
+                return RedirectToAction("Login", "Account", new { Area = "" });
+            }
+        }
+
+        public ActionResult EditPackageOffer(long id)
+        {
+            try
+            {
+                ViewBag.ActiveURL = "/Admin/packagelist";
+                PackageSaveModel model = new PackageSaveModel();
+                model.PackageType = objAPI.GetObjectByKey<utblMstPackageType>("packageconfig", "packageofferbyid", id.ToString(), "PackageTypeID");
+                return View(model);
+            }
+            catch (AuthorizationException)
+            {
+                TempData["ErrMsg"] = "Your Login Session has expired. Please Login Again";
+                return RedirectToAction("Login", "Account", new { Area = "" });
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditPackageOffer(PackageSaveModel model)
+        {
+            try
+            {
+                ViewBag.ActiveURL = "/Admin/packagelist";
+                if (ModelState.IsValid)
+                {
+                    string jsonStr = JsonConvert.SerializeObject(model.PackageType);
+                    TempData["ErrMsg"] = objAPI.PostRecordtoApI("packageconfig", "savepackageoffer", jsonStr);
+                    return RedirectToAction("packagelist", "Package", new { Area = "Admin" });
+                }
+                return View(model);
+
+            }
+            catch (AuthorizationException)
+            {
+                TempData["ErrMsg"] = "Your Login Session has expired. Please Login Again";
+                return RedirectToAction("Login", "Account", new { Area = "" });
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeletePackageOffer(long PackageOfferID)
+        {
+            TempData["ErrMsg"] = objAPI.DeleteRecordByKey("packageconfig", "deletepackageoffer", PackageOfferID.ToString(), "PackageOfferID");
+            return RedirectToAction("PackageList", "Package", new { Area = "Admin" });
+        }
+
+        #endregion
+    }
+}

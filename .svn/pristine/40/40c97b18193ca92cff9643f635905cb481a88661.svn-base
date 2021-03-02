@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/toastr.min.css" rel="stylesheet" />
+    <link href="~/Content/login.css" rel="stylesheet" />
+    <link rel="shortcut icon" href="~/favicon.png" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
+</head>
+<body>
+    <div class="container-scroller">
+        <div class="container-fluid page-body-wrapper full-page-wrapper auth-page p-0">
+            <div class="content-wrapper d-flex auth auth-bg-1 theme-one">
+                <div class="flex-row w-100">
+                    <div class="col-md-6 col-lg-4 mx-auto">
+                        <div class="auto-form-wrapper">
+                            @RenderBody()
+                        </div>
+                        @*<ul class="auth-footer">
+                                <li>
+                                    <a href="#">Conditions</a>
+                                </li>
+                                <li>
+                                    <a href="#">Help</a>
+                                </li>
+                                <li>
+                                    <a href="#">Terms</a>
+                                </li>
+                            </ul>
+                        <p class="footer-text text-center">SHAMAGRA SIKSHA SIKKIM, GOVT. OF SIKKIM</p>*@
+                    </div>
+                </div>
+            </div>
+            <!-- content-wrapper ends -->
+        </div>
+        <!-- page-body-wrapper ends -->
+    </div>
+    @*error message*@
+    <div id="ErrMsg" style="display:none;">
+        <input type="hidden" id="ErrMsgHiddenField" name="ErrMsg" value="@TempData["ErrMsg"]" />
+    </div>
+
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <script src="~/Scripts/toastr.js"></script>
+    <script>
+        $(document).ready(function () {
+            toastr.options = {
+                "closeButton": false,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": false,
+                "positionClass": "toast-top-center",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+
+            ShowToast();
+        });
+        function ShowToast() {
+            if ($('#ErrMsgHiddenField').val().length > 1) {
+                var msgId = $('#ErrMsgHiddenField').val();
+                if (msgId != null && msgId.toString().trim() != "") {
+                    toastr.info(msgId, 'Information');
+                }
+            }
+        }
+    </script>
+    <!-- endinject -->
+</body>
+</html>

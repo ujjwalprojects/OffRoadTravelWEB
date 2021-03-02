@@ -1,0 +1,142 @@
+﻿@model TourTravel_Web.CustomModels.GenTourPackageAPIVM
+@{
+    ViewBag.Title = "ClientDetail";
+    Layout = "~/Views/Shared/_LayoutGeneral.cshtml";
+}
+<link href="~/Content/Wizzard.css" rel="stylesheet" />
+<link href="~/Content/datetimepicker/jquery.datetimepicker.min.css" rel="stylesheet" />
+<link href="~/Content/Select2/select2.min.css" rel="stylesheet" />
+
+
+<section class="peulis-tour-details-area section_70">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg">
+                <div class="title-div">
+                    <i class="fa fa-hand-o-right"></i>&nbsp;
+                    <span class="title">Tour Package - Configuration</span>&nbsp;
+                    <small>Step 1 of 5</small>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="text-center">
+                            <label class="alert alert-info p-2"><small> Fields marked * are mandatory</small></label>
+                        </div>
+                        @using (Html.BeginForm("clientdetail", "gentourpackage", FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.HiddenFor(model => model.GenTourPackageDtlView.PackageID)
+                            @Html.HiddenFor(model => model.linkname)
+                            <div class="form-group">
+                                @Html.TextBoxFor(m => m.ClientEnquiry.ClientName, new { @class = "form-control", placeholder = "Your Name" })
+                                @Html.ValidationMessageFor(m => m.ClientEnquiry.ClientName)
+                            </div>
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(m => m.ClientEnquiry.ClientEmail, new { @class = "form-control", placeholder = "Email Address" })
+                                        @Html.ValidationMessageFor(m => m.ClientEnquiry.ClientEmail)
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(m => m.ClientEnquiry.ClientPhoneNo, new { @class = "form-control", placeholder = "Phone Number" })
+                                        @Html.ValidationMessageFor(m => m.ClientEnquiry.ClientPhoneNo)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(model => model.ClientEnquiry.DateOfArrival, new { @class = "form-control", id = "reservation_date", placeholder = "Travel Date" })
+                                        @Html.ValidationMessageFor(model => model.ClientEnquiry.DateOfArrival)
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <div class="book-tour-field clearfix">
+                                            @Html.DropDownListFor(x => x.ClientEnquiry.NoOfAdult, new SelectListItem[]{
+                                                new SelectListItem(){Text="No of Adults", Value=""},
+                                                new SelectListItem(){Text="1", Value="1"},
+                                                new SelectListItem(){Text="2",Value="2"},
+                                                new SelectListItem(){Text="3",Value="3"},
+                                                new SelectListItem(){Text="4+",Value="4+"}}, new { @class = "wide dd-select", id = "NoofAdults", name = "NoofAdults" })
+                                            @Html.ValidationMessageFor(model => model.ClientEnquiry.NoOfAdult)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        @Html.DropDownListFor(x => x.ClientEnquiry.NoOfChildren, new SelectListItem[]{
+                                        new SelectListItem(){Text="No of Children", Value=""},
+                                        new SelectListItem(){Text="0", Value="0"},
+                                        new SelectListItem(){Text="1", Value="1"},
+                                        new SelectListItem(){Text="2",Value="2"},
+                                        new SelectListItem(){Text="3+",Value="3+"}, }, new { @class = "wide dd-select", id = "NoOfChildren", name = "NoOfChildren" })
+                                        @Html.ValidationMessageFor(model => model.ClientEnquiry.NoOfChildren)
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        @Html.DropDownListFor(model => model.ClientEnquiry.HotelTypeID, new SelectList(Model.HotelTypes, "HotelTypeID", "HotelTypeName"), "Preferred Hotel Type", new { id = "HotelType", @class = "dd-select wide" })
+                                        @Html.ValidationMessageFor(model => model.ClientEnquiry.HotelTypeID)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        @Html.DropDownListFor(model => model.ClientEnquiry.CabTypeID, new SelectList(Model.CabTypes, "CabTypeID", "CabTypeName"), "Preferred Cab Type", new { id = "CabType", @class = "wide dd-select" })
+                                        @Html.ValidationMessageFor(model => model.ClientEnquiry.CabTypeID)
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        @Html.DropDownListFor(x => x.ClientEnquiry.NoOfDays, new SelectListItem[]{
+                                        new SelectListItem(){Text="No of Days", Value=""},
+                                        new SelectListItem(){Text="0", Value="0"},
+                                        new SelectListItem(){Text="1", Value="1"},
+                                        new SelectListItem(){Text="2",Value="2"},
+                                        new SelectListItem(){Text="3",Value="3"},
+                                        new SelectListItem(){Text="4",Value="4"},
+                                        new SelectListItem(){Text="5",Value="5"},
+                                        new SelectListItem(){Text="6",Value="6"},
+                                        new SelectListItem(){Text="7",Value="7"},
+                                        new SelectListItem(){Text="8",Value="8"},
+                                        new SelectListItem(){Text="9",Value="9"},
+                                        new SelectListItem(){Text="10",Value="10"},
+                                        new SelectListItem(){Text="11",Value="11"},
+                                        new SelectListItem(){Text="12",Value="12"},}, new { @class = "wide dd-select", id = "NoOfDays", name = "NoOfDays" })
+                                        @Html.ValidationMessageFor(model => model.ClientEnquiry.NoOfDays)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="action-div">
+                                <a href="/admin/tourpackage" class="btn btn-secondary">Back To List</a>
+                                <button class="btn btn-success pull-right" type="submit">Save &amp; Continue</button>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Content/Select2/select2.min.js"></script>
+    <script src="~/Content/datetimepicker/jquery.datetimepicker.full.min.js"></script>
+    <script type="text/javascript">
+        $('.dd-select').select2({
+            width: '100%',
+        });
+        $('#reservation_date').datetimepicker({
+            theme: 'light',
+            timepicker: false,
+            format: 'd M Y',
+            minDate: 'today'
+        });
+    </script>
+}

@@ -1,0 +1,299 @@
+﻿@model TourTravel_Web.ViewModels.TourPackageBookingManageModel
+
+@{
+    ViewBag.Title = "ClientPackageSummary";
+    Layout = "~/Views/Shared/_LayoutGeneral.cshtml";
+}
+@{
+    var last = Model.ClientEnqItineraryView.Last();
+    var first = Model.ClientEnqItineraryView.First();
+}
+<section class="peulis-tour-details-area section_70">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="tour-details">
+                    @using (Html.BeginForm(Html.BeginForm("ClientPackageSummary", "gentourpackage", FormMethod.Post)))
+                    { 
+                         @Html.AntiForgeryToken()
+                        @Html.HiddenFor(model=> model.ClientEnqInfoView.EnquiryCode)
+                    <ul class="tour-offer clearfix">
+                        <li><span>Name </span>@Model.ClientEnqInfoView.ClientName</li>
+                        <li><span>Email </span>@Model.ClientEnqInfoView.ClientEmail</li>
+                        <li><span>Mobile No.</span>@Model.ClientEnqInfoView.ClientPhoneNo</li>
+                        <li><span>Date of Arrival </span>@Model.ClientEnqInfoView.DateOfArrival.ToString("dd-MMM-yyyy")</li>
+                        <li><span>No of Days </span>@Model.ClientEnqInfoView.NoOfDays</li>
+                        <li><span>No of Adults </span>@Model.ClientEnqInfoView.NoOfAdult</li>
+                        @if(Model.ClientEnqInfoView.NoOfChildren != "0")
+                        {
+                            <li><span>No of Children </span>@Model.ClientEnqInfoView.NoOfChildren</li>
+                        }
+                        <li><span>Preferred Hotel Type</span>@Model.ClientEnqInfoView.HotelTypeName</li>
+                        <li><span>Preferred Cab Type </span>@Model.ClientEnqInfoView.CabTypeName</li>
+                    </ul>
+                    <div class="row">
+                        <div class="col-md-12 col-lg-12">
+                            <div id="tracking-pre"></div>
+                            <div id="tracking">
+                                <div class="text-center tracking-status-intransit">
+                                    <p class="tracking-status text-tight">Itinerary</p>
+                                </div>
+                                <div class="tracking-list">
+
+                                    @foreach (var item in Model.ClientEnqItineraryView)
+                                    {
+                                        <div class="tracking-item">
+                                            <div class="tracking-icon status-intransit">
+                                                @item.DayNo
+                                            </div>
+                                            <div class="tracking-date">Day </div>
+                                            <div class="tracking-content">
+                                                @item.ItineraryName
+                                                <ul class="package-tags">
+                                                    @if (item.Equals(first))
+                                                    {
+                                                        <li>
+                                                            <img src="~/Content/img/ItineraryIcon/land.png" /> Arrival
+                                                        </li>
+                                                    }
+                                                </ul>
+
+                                                <div class="tracking-title mb-4">
+                                                    Other Benefits (On Arrival)
+                                                    <div class="row ml-2">
+                                                        @if (item.Breakfast == true)
+                                                        {
+                                                            <div class="css-1hrscrw clearfix relative">
+                                                                <span class="">
+                                                                    <span class="css-g71760">
+                                                                        <img src="~/Content/img/ItineraryIcon/food.png" />
+                                                                    </span>
+                                                                    <span class="inclusionName">Breakfast</span>
+                                                                </span>
+                                                            </div>
+                                                        }
+                                                        @if (item.lunch == true)
+                                                        {
+                                                            <div class="css-1hrscrw clearfix relative">
+                                                                <span class="">
+                                                                    <span class="css-g71760">
+                                                                        <img src="~/Content/img/ItineraryIcon/food.png" />
+                                                                    </span>
+                                                                    <span class="inclusionName">Lunch</span>
+                                                                </span>
+                                                            </div>
+                                                        }
+                                                        @if (item.Dinner == true)
+                                                        {
+                                                            <div class="css-1hrscrw clearfix relative">
+                                                                <span class="">
+                                                                    <span class="css-g71760">
+                                                                        <img src="~/Content/img/ItineraryIcon/food.png" />
+                                                                    </span>
+                                                                    <span class="inclusionName">Dinner</span>
+                                                                </span>
+                                                            </div>
+                                                        }
+                                                        @if (item.SightSeeing == true)
+                                                        {
+                                                            <div class="css-1hrscrw clearfix relative">
+                                                                <span class="">
+                                                                    <span class="css-g71760">
+                                                                        <img src="~/Content/img/ItineraryIcon/eye.png" />
+                                                                    </span>
+                                                                    <span class="inclusionName">Sight Seeing</span>
+                                                                </span>
+                                                            </div>
+                                                        }
+                                                        @if (item.Stay == true)
+                                                        {
+                                                            <div class="css-1hrscrw clearfix relative">
+                                                                <span class="">
+                                                                    <span class="css-g71760">
+                                                                        <img src="~/Content/img/ItineraryIcon/bed.png" />
+                                                                    </span>
+                                                                    <span class="inclusionName">Stay</span>
+                                                                </span>
+                                                            </div>
+                                                        }
+                                                    </div>
+                                                </div>
+                                                <span>@item.ItineraryRemarks</span>
+                                                <div class="tracking-title mt-4">Overnight Destination: @item.DestinationName</div>
+                                                <ul class="package-tags">
+                                                    @if (item.Equals(last))
+                                                    {
+                                                        <li>
+                                                            Departure
+                                                            <img src="~/Content/img/ItineraryIcon/take-off.png" />
+                                                        </li>
+                                                    }
+                                                </ul>
+                                            </div>
+
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        @if (Model.ClientEnqActivityList.Count() > 0)
+                        {
+                            <div class="row">
+                                <div class="col-md-12 col-lg-12">
+                                    <div id="tracking-pre"></div>
+                                    <div id="tracking">
+                                        <div class="text-center tracking-status-intransit">
+                                            <p class="tracking-status text-tight">Adventure Activities</p>
+                                        </div>
+                                        <div class="tracking-list">
+                                            <div class="mt-4">
+                                                <div class="tracking-content">
+                                                    <div class="tracking-title m-4">
+                                                        <div class="row ml-2">
+                                                            @foreach (var item in Model.ClientEnqActivityList)
+                                                            {
+                                                                if (item.ActivityName == "Rock Climbing")
+                                                                {
+                                                                    <div class="css-1hrscrw clearfix relative">
+                                                                        <span class="">
+                                                                            <span class="css-g71761">
+                                                                                <img src="~/Uploads/AdventureIcon/climbing.png" />
+                                                                            </span>
+                                                                            <span class="inclusionName_adv">Rock Climbing</span>
+                                                                        </span>
+                                                                    </div>
+                                                                }
+                                                                if (item.ActivityName == "Treeking")
+                                                                {
+                                                                    <div class="css-1hrscrw clearfix relative">
+                                                                        <span class="">
+                                                                            <span class="css-g71761">
+                                                                                <img src="~/Uploads/AdventureIcon/hiker.png" />
+                                                                            </span>
+                                                                            <span class="inclusionName_adv">Treeking</span>
+                                                                        </span>
+                                                                    </div>
+                                                                }
+                                                                if (item.ActivityName == "Caving")
+                                                                {
+                                                                    <div class="css-1hrscrw clearfix relative">
+                                                                        <span class="">
+                                                                            <span class="css-g71761">
+                                                                                <img src="~/Uploads/AdventureIcon/cave.png" />
+                                                                            </span>
+                                                                            <span class="inclusionName_adv">Caving</span>
+                                                                        </span>
+                                                                    </div>
+                                                                }
+                                                                if (item.ActivityName == "River Rafting")
+                                                                {
+                                                                    <div class="css-1hrscrw clearfix relative">
+                                                                        <span class="">
+                                                                            <span class="css-g71761">
+                                                                                <img src="~/Uploads/AdventureIcon/rafting.png" />
+                                                                            </span>
+                                                                            <span class="inclusionName_adv">River Rafting</span>
+                                                                        </span>
+                                                                    </div>
+                                                                }
+                                                                if (item.ActivityName == "Safari")
+                                                                {
+                                                                    <div class="css-1hrscrw clearfix relative">
+                                                                        <span class="">
+                                                                            <span class="css-g71761">
+                                                                                <img src="~/Uploads/AdventureIcon/safari.png" />
+                                                                            </span>
+                                                                            <span class="inclusionName_adv">Safari</span>
+                                                                        </span>
+                                                                    </div>
+                                                                }
+                                                                if (item.ActivityName == "Paragliding")
+                                                                {
+                                                                    <div class="css-1hrscrw clearfix relative">
+                                                                        <span class="">
+                                                                            <span class="css-g71761">
+                                                                                <img src="~/Uploads/AdventureIcon/parachutist.png" />
+                                                                            </span>
+                                                                            <span class="inclusionName_adv">Paragliding</span>
+                                                                        </span>
+                                                                    </div>
+                                                                }
+                                                                if (item.ActivityName == "Ropeway Cable Ride")
+                                                                {
+                                                                    <div class="css-1hrscrw clearfix relative">
+                                                                        <span class="">
+                                                                            <span class="css-g71761">
+                                                                                <img src="~/Uploads/AdventureIcon/Ropeway.png" />
+                                                                            </span>
+                                                                            <span class="inclusionName_adv">Ropeway Cable Ride</span>
+                                                                        </span>
+                                                                    </div>
+                                                                }
+                                                                if (item.ActivityName == "Mountaineering")
+                                                                {
+                                                                    <div class="css-1hrscrw clearfix relative">
+                                                                        <span class="">
+                                                                            <span class="css-g71761">
+                                                                                <img src="~/Uploads/AdventureIcon/mountaineering.png" />
+                                                                            </span>
+                                                                            <span class="inclusionName_adv">Mountaineering</span>
+                                                                        </span>
+                                                                    </div>
+                                                                }
+                                                                if (item.ActivityName == "Mountain Biking")
+                                                                {
+                                                                    <div class="css-1hrscrw clearfix relative">
+                                                                        <span class="">
+                                                                            <span class="css-g71761">
+                                                                                <img src="~/Uploads/AdventureIcon/cyclist.png" />
+                                                                            </span>
+                                                                            <span class="inclusionName_adv">Mountain Biking</span>
+                                                                        </span>
+                                                                    </div>
+                                                                }
+                                                                if (item.ActivityName == "Helicopter Ride")
+                                                                {
+                                                                    <div class="css-1hrscrw clearfix relative">
+                                                                        <span class="">
+                                                                            <span class="css-g71761">
+                                                                                <img src="~/Uploads/AdventureIcon/chopper.png" />
+                                                                            </span>
+                                                                            <span class="inclusionName_adv">Helicopter Ride</span>
+                                                                        </span>
+                                                                    </div>
+                                                                }
+                                                                if (item.ActivityName == "Casino")
+                                                                {
+                                                                    <div class="css-1hrscrw clearfix relative">
+                                                                        <span class="">
+                                                                            <span class="css-g71761">
+                                                                                <img src="~/Uploads/AdventureIcon/casino.png" />
+                                                                            </span>
+                                                                            <span class="inclusionName_adv">Casino</span>
+                                                                        </span>
+                                                                    </div>
+                                                                }
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="action-div">
+                        <a href="/customactivities/@Model.ClientEnqInfoView.EnquiryCode" class="btn btn-secondary">< Back</a>
+                        <button class="btn btn-success pull-right" type="submit">Submit</button>
+                    </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

@@ -1,0 +1,47 @@
+﻿/*********************** Wizard ************************/
+.wizard-steps-bg {margin-bottom: 30px;text-align: center; font-size: 13px; font-weight: bold; text-transform: uppercase; }
+.wizard-steps {background-color:#EEEEEE;  line-height: 35px; color: rgba(158,171,191,1); margin-top: 5px; height: 35px; max-height: 35px;}
+.wizard-steps-active {background-color: #ff6d34; color: #fff; line-height: 45px; border-radius: 5px; box-shadow: 0 16px 26px -10px rgba(244, 67, 54, 0.56), 0 4px 25px 0 rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(244, 67, 54, 0.2); cursor:pointer; }
+.background-white {
+        background: #fff;
+    }
+
+.bg-aqua {
+    background-color: #00c0ef !important;
+    color: #fff;
+}
+
+.box-widget {
+  border: none;
+  position: relative;
+}
+.widget-user .widget-user-header {
+  padding: 20px;
+  height: 120px;
+  border-top-right-radius: 3px;
+  border-top-left-radius: 3px;
+}
+.widget-user .widget-user-username {
+  margin-top: 0;
+  margin-bottom: 5px;
+  font-weight: 300;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+.widget-user .widget-user-desc {
+  margin-top: 0;
+}
+.widget-user .widget-user-image {
+  position: absolute;
+  top: 65px;
+  left: 50%;
+  margin-left: -45px;
+}
+.widget-user .widget-user-image > img {
+  width: 90px;
+  height: auto;
+  border: 3px solid #fff;
+}
+.widget-user .box-footer {
+  padding-top: 40px;
+  background-color: rgba(199, 199, 199, 0.20);
+}

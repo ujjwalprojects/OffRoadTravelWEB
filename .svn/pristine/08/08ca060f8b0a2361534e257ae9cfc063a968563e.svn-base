@@ -1,0 +1,30 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using TourTravel_Web.Helpers;
+
+namespace TourTravel_Web.Areas.General.CustomModels
+{
+    public class GenTourPackageView
+    {
+        public long PackageID { get; set; }
+        public string PackageName { get; set; }
+        public string PackageTypeName { get; set; }
+        public int Days { get; set; }
+        public int Nights { get; set; }
+        public decimal FinalFare { get; set; }
+    }
+
+    public class GenTourPackageAPIVM
+    {
+        public IEnumerable<GenTourPackageView> TourPackageList { get; set; }
+        public int TotalRecords { get; set; }
+    }
+
+    public class GenTourPackageVM
+    {
+        public IEnumerable<GenTourPackageView> PackageList { get; set; }
+        public PagingInfo PagingInfo { get; set; }
+    }
+}

@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "SubmissionFailure";
+    Layout = "~/Views/Shared/_LayoutGeneral.cshtml";
+}
+
+<section class="peulis-notfound-area section_70">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="notfound-box">
+                    <h1><span class="fa fa-frown-o"></span></h1>
+                    <h3>Oopps... Your Request couldn't be submitted!</h3>
+                    <p>Please try again later.</p>
+                    <a href="/home" class="peulis-btn">back to home</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

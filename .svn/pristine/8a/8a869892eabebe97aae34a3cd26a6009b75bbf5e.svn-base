@@ -1,0 +1,40 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using TourTravel_Web.Areas.Admin.CustomModels;
+using TourTravel_Web.Areas.Admin.Models;
+using TourTravel_Web.CustomModels;
+using TourTravel_Web.Helpers;
+
+namespace TourTravel_Web.Controllers
+{
+    public class HomeController : Controller
+    {
+        ApiConnection objAPI = new ApiConnection("general");
+        public ActionResult Index()
+        
+        {
+            string query = "PageNo=1&PageSize=10&SearchTerm=";
+            ViewBag.TourPackages = objAPI.GetRecordByQueryString<GenTourPackageVM>("tourpackage", "GenTourPackageList", query).PackageList.Take(6);
+            ViewBag.BannerList = objAPI.GetAllRecords<utblMstBanner>("tourpackage", "homebannerlist");
+
+            return View();
+        }
+
+        public ActionResult About()
+        {
+            ViewBag.Message = "Your application description page.";
+
+            return View();
+        }
+
+        public ActionResult Contact()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
+    }
+}
